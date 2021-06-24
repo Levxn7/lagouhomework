@@ -11,7 +11,7 @@ const TerserWebpackPlugin = require("terser-webpack-plugin");
 //生产环境的配置
 module.exports = merge(common, {
   mode: "production",
-  devtool: "none",   //sourceMap
+  devtool: "nosources-source-map",   //sourceMap
 
   output: {
     filename: "js/[name].[hash:8].js", //8位hash值
@@ -47,29 +47,29 @@ module.exports = merge(common, {
     ]
   },
   module: {
-    rules: [ 
-        {
-            test: /\.less$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                "css-loader", 
-                "less-loader"
-                ]
-        },
-        {
-            test: /\.css$/,
-            use: [
-                MiniCssExtractPlugin.loader, // 将样式通过 style 标签注入
-                'css-loader'
-                ]
-        }
+    rules: [
+      {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "less-loader"
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader, // 将样式通过 style 标签注入
+          'css-loader'
+        ]
+      }
     ]
   },
 
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
-      favicon: "./public/favicon.ico", 
+      favicon: "./public/favicon.ico",
       minify: {//压缩
         removeComments: true, //去注释
         collapseWhitespace: true, //去空格
@@ -77,7 +77,7 @@ module.exports = merge(common, {
       }
     }),
     new DefinePlugin({
-      BASE_URL: "/public/"
+      BASE_URL: '"/public/"'
     }),
     new CleanWebpackPlugin(),//清理
     new MiniCssExtractPlugin({
